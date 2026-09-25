@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefWidth="1000.0" prefHeight="650.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.dealerlink.controller.DealerDashboardController">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="top-nav-dealer">
+            <padding>
+                <Insets top="12" right="20" bottom="12" left="20"/>
+            </padding>
+            <Label fx:id="headerLabel" text="Dealer Portal" styleClass="nav-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="weatherStatusLabel" text="Weather: Loading..." styleClass="weather-tag"/>
+            <Button text="Refresh" onAction="#handleRefresh"/>
+            <Button text="Sign Out" onAction="#handleLogout" styleClass="danger-button"/>
+        </HBox>
+    </top>
+
+    <!-- Main Content Area -->
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <!-- Tab 1: Inventory Management -->
+            <Tab text="Inventory Management">
+                <VBox spacing="12.0">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <Label text="Product:"/>
+                        <ComboBox fx:id="invProductComboBox" promptText="Select Product" prefWidth="200.0"/>
+                        <Label text="Stock Qty:"/>
+                        <TextField fx:id="invQtyField" promptText="Qty" prefWidth="90.0"/>
+                        <Label text="Unit Price ($):"/>
+                        <TextField fx:id="invPriceField" promptText="Price" prefWidth="100.0"/>
+                        <Button text="Update / Add Stock" onAction="#handleUpsertInventory" styleClass="primary-button"/>
+                        <Label fx:id="invFeedbackLabel" styleClass="status-label"/>
+                    </HBox>
+
+                    <TableView fx:id="inventoryTable" VBox.hgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colInvId" text="ID" prefWidth="50.0"/>
+                            <TableColumn fx:id="colInvProduct" text="Product Name" prefWidth="180.0"/>
+                            <TableColumn fx:id="colInvUnit" text="Unit" prefWidth="80.0"/>
+                            <TableColumn fx:id="colInvQty" text="Stock Available" prefWidth="120.0"/>
+                            <TableColumn fx:id="colInvPrice" text="Unit Price ($)" prefWidth="120.0"/>
+                            <TableColumn fx:id="colInvUpdated" text="Last Updated" prefWidth="180.0"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <!-- Tab 2: Market Requests & Bidding -->
+            <Tab text="Incoming Shop Requests">
+                <VBox spacing="12.0">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <TableView fx:id="requestsTable" VBox.hgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colReqId" text="Request ID" prefWidth="80.0"/>
+                            <TableColumn fx:id="colReqShop" text="Shop Name" prefWidth="150.0"/>
+                            <TableColumn fx:id="colReqCity" text="City" prefWidth="100.0"/>
+                            <TableColumn fx:id="colReqProduct" text="Product" prefWidth="160.0"/>
+                            <TableColumn fx:id="colReqQty" text="Quantity" prefWidth="90.0"/>
+                            <TableColumn fx:id="colReqNotes" text="Notes" prefWidth="160.0"/>
+                            <TableColumn fx:id="colReqStatus" text="Status" prefWidth="90.0"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <Label text="Unit Price ($):"/>
+                        <TextField fx:id="quoteUnitRateField" promptText="0.00" prefWidth="90.0"/>
+                        <Label text="Lead Time (Days):"/>
+                        <TextField fx:id="quoteDaysField" promptText="Days" prefWidth="70.0"/>
+                        <Label text="Message:"/>
+                        <TextArea fx:id="quoteMsgArea" promptText="Delivery details" prefRowCount="1" prefWidth="200.0"/>
+                        <Button text="Submit Quotation" onAction="#handleSubmitQuotation" styleClass="success-button"/>
+                        <Label fx:id="quoteFeedbackLabel" styleClass="status-label"/>
+                    </HBox>
+                </VBox>
+            </Tab>
+
+            <!-- Tab 3: Confirmed Orders & Shipment Dispatch -->
+            <Tab text="Orders &amp; Deliveries">
+                <VBox spacing="12.0">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <TableView fx:id="ordersTable" VBox.hgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="70.0"/>
+                            <TableColumn fx:id="colOrderShop" text="Shop Name" prefWidth="140.0"/>
+                            <TableColumn fx:id="colOrderProduct" text="Product" prefWidth="150.0"/>
+                            <TableColumn fx:id="colOrderTotal" text="Total ($)" prefWidth="100.0"/>
+                            <TableColumn fx:id="colOrderStatus" text="Status" prefWidth="110.0"/>
+                            <TableColumn fx:id="colOrderDeliveryStatus" text="Shipment" prefWidth="110.0"/>
+                            <TableColumn fx:id="colOrderLocation" text="Location" prefWidth="120.0"/>
+                            <TableColumn fx:id="colOrderWeather" text="Transit Weather" prefWidth="150.0"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <Label text="Status:"/>
+                        <ComboBox fx:id="deliveryStatusComboBox" prefWidth="130.0"/>
+                        <Label text="Location:"/>
+                        <TextField fx:id="deliveryLocationField" promptText="City name (e.g. Jessore)" prefWidth="160.0"/>
+                        <Label text="ETA:"/>
+                        <TextField fx:id="deliveryEtaField" promptText="e.g. 2 Days" prefWidth="90.0"/>
+                        <Button text="Update Shipment" onAction="#handleUpdateDelivery" styleClass="primary-button"/>
+                        <Label fx:id="orderFeedbackLabel" styleClass="status-label"/>
+                    </HBox>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>

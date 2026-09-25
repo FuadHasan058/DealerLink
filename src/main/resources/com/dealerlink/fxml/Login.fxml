@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15.0" prefWidth="1000.0" prefHeight="650.0"
+      styleClass="root-pane"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.dealerlink.controller.LoginController">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <VBox alignment="CENTER" spacing="5.0">
+        <Label text="DealerLink" styleClass="app-title"/>
+        <Label text="Smart B2B Shop–Dealer Supply Platform" styleClass="app-subtitle"/>
+    </VBox>
+
+    <TabPane tabClosingPolicy="UNAVAILABLE" maxWidth="480.0" styleClass="card-pane">
+        <!-- Sign In -->
+        <Tab text="Sign In">
+            <VBox spacing="12.0">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <Label text="Role:"/>
+                <ComboBox fx:id="loginRoleComboBox" maxWidth="Infinity"/>
+
+                <Label text="Username:"/>
+                <TextField fx:id="loginUsernameField" promptText="Enter your username"/>
+
+                <Label text="Password:"/>
+                <PasswordField fx:id="loginPasswordField" promptText="Enter your password"/>
+
+                <Button text="Sign In" onAction="#handleLogin" maxWidth="Infinity" styleClass="primary-button"/>
+                <Label fx:id="loginStatusLabel" styleClass="error-label"/>
+            </VBox>
+        </Tab>
+
+        <!-- Register -->
+        <Tab text="Register New Account">
+            <VBox spacing="10.0">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <HBox spacing="10">
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label text="Account Role:"/>
+                        <ComboBox fx:id="regRoleComboBox" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label text="Username:"/>
+                        <TextField fx:id="regUsernameField" promptText="Username"/>
+                    </VBox>
+                </HBox>
+
+                <Label text="Password:"/>
+                <PasswordField fx:id="regPasswordField" promptText="Create a secure password"/>
+
+                <Label text="Full / Business Name:"/>
+                <TextField fx:id="regNameField" promptText="Business name or contact"/>
+
+                <HBox spacing="10">
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label text="City:"/>
+                        <TextField fx:id="regCityField" promptText="e.g. Khulna, Dhaka"/>
+                    </VBox>
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label text="Phone:"/>
+                        <TextField fx:id="regPhoneField" promptText="Phone number"/>
+                    </VBox>
+                </HBox>
+
+                <Label text="Address:"/>
+                <TextField fx:id="regAddressField" promptText="Street address"/>
+
+                <Button text="Register Account" onAction="#handleRegister" maxWidth="Infinity" styleClass="success-button"/>
+                <Label fx:id="regStatusLabel" styleClass="error-label"/>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>
