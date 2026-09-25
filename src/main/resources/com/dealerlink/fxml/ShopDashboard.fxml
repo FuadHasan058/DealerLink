@@ -46,8 +46,8 @@
                         <Label fx:id="requestFeedbackLabel" styleClass="status-label"/>
                     </HBox>
 
-                    <Label text="My Submitted Requests (Click to view quotes below):" style="-fx-font-weight: bold;"/>
-                    <TableView fx:id="myRequestsTable" VBox.hgrow="ALWAYS">
+                    <Label text="My Submitted Requests (Click row to view quotes below):" style="-fx-font-weight: bold;"/>
+                    <TableView fx:id="myRequestsTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colReqId" text="ID" prefWidth="50.0"/>
                             <TableColumn fx:id="colReqProduct" text="Product" prefWidth="180.0"/>
@@ -66,7 +66,7 @@
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
                     <Label text="Quotes Received for Selected Request:" style="-fx-font-weight: bold;"/>
-                    <TableView fx:id="quotationsTable" VBox.hgrow="ALWAYS">
+                    <TableView fx:id="quotationsTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colQuoteId" text="Quote ID" prefWidth="65.0"/>
                             <TableColumn fx:id="colQuoteDealer" text="Dealer" prefWidth="140.0"/>
@@ -91,7 +91,7 @@
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <TableView fx:id="ordersTable" VBox.hgrow="ALWAYS">
+                    <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="70.0"/>
                             <TableColumn fx:id="colOrderProduct" text="Product" prefWidth="150.0"/>

@@ -45,7 +45,7 @@
                         <Label fx:id="invFeedbackLabel" styleClass="status-label"/>
                     </HBox>
 
-                    <TableView fx:id="inventoryTable" VBox.hgrow="ALWAYS">
+                    <TableView fx:id="inventoryTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colInvId" text="ID" prefWidth="50.0"/>
                             <TableColumn fx:id="colInvProduct" text="Product Name" prefWidth="180.0"/>
@@ -64,7 +64,7 @@
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <TableView fx:id="requestsTable" VBox.hgrow="ALWAYS">
+                    <TableView fx:id="requestsTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colReqId" text="Request ID" prefWidth="80.0"/>
                             <TableColumn fx:id="colReqShop" text="Shop Name" prefWidth="150.0"/>
@@ -98,7 +98,7 @@
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <TableView fx:id="ordersTable" VBox.hgrow="ALWAYS">
+                    <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="70.0"/>
                             <TableColumn fx:id="colOrderShop" text="Shop Name" prefWidth="140.0"/>
