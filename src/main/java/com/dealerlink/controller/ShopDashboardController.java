@@ -7,7 +7,6 @@ import com.dealerlink.dao.ProductDAO;
 import com.dealerlink.dao.QuotationDAO;
 import com.dealerlink.dao.RequestDAO;
 import com.dealerlink.model.Order;
-import com.dealerlink.model.Product;
 import com.dealerlink.model.ProductRequest;
 import com.dealerlink.model.Quotation;
 import com.dealerlink.model.User;
@@ -28,7 +27,8 @@ public class ShopDashboardController {
     @FXML private Label weatherStatusLabel;
 
     // Request Creation
-    @FXML private ComboBox<Product> productComboBox;
+    @FXML private TextField productNameField;
+    @FXML private TextField unitField;
     @FXML private TextField quantityField;
     @FXML private TextArea notesArea;
     @FXML private Label requestFeedbackLabel;
@@ -37,6 +37,7 @@ public class ShopDashboardController {
     @FXML private TableView<ProductRequest> myRequestsTable;
     @FXML private TableColumn<ProductRequest, Integer> colReqId;
     @FXML private TableColumn<ProductRequest, String> colReqProduct;
+    @FXML private TableColumn<ProductRequest, String> colReqUnit;
     @FXML private TableColumn<ProductRequest, Integer> colReqQty;
     @FXML private TableColumn<ProductRequest, String> colReqStatus;
     @FXML private TableColumn<ProductRequest, String> colReqDate;
@@ -57,6 +58,7 @@ public class ShopDashboardController {
     @FXML private TableView<Order> ordersTable;
     @FXML private TableColumn<Order, Integer> colOrderId;
     @FXML private TableColumn<Order, String> colOrderProduct;
+    @FXML private TableColumn<Order, String> colOrderUnit;
     @FXML private TableColumn<Order, String> colOrderDealer;
     @FXML private TableColumn<Order, Double> colOrderTotal;
     @FXML private TableColumn<Order, String> colOrderStatus;
@@ -79,7 +81,6 @@ public class ShopDashboardController {
         }
 
         setupTableColumns();
-        loadProducts();
         loadMyRequests();
         loadOrders();
 
@@ -93,6 +94,7 @@ public class ShopDashboardController {
     private void setupTableColumns() {
         colReqId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colReqProduct.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        colReqUnit.setCellValueFactory(new PropertyValueFactory<>("unit"));
         colReqQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colReqStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         colReqDate.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
@@ -108,6 +110,7 @@ public class ShopDashboardController {
 
         colOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colOrderProduct.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        colOrderUnit.setCellValueFactory(new PropertyValueFactory<>("unit"));
         colOrderDealer.setCellValueFactory(new PropertyValueFactory<>("dealerName"));
         colOrderTotal.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
         colOrderStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -123,25 +126,16 @@ public class ShopDashboardController {
         });
     }
 
-    private void loadProducts() {
-        SessionManager.executor().execute(() -> {
-            try {
-                List<Product> products = productDAO.getAllProducts();
-                Platform.runLater(() -> productComboBox.setItems(FXCollections.observableArrayList(products)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
     @FXML
     private void handleCreateRequest(ActionEvent event) {
-        Product selectedProduct = productComboBox.getValue();
+        String productName = productNameField.getText().trim();
+        String unit = unitField.getText().trim();
         String qtyText = quantityField.getText().trim();
         String notes = notesArea.getText().trim();
 
-        if (selectedProduct == null || qtyText.isEmpty()) {
-            requestFeedbackLabel.setText("Please select a product and enter quantity.");
+        if (productName.isEmpty() || qtyText.isEmpty()) {
+            requestFeedbackLabel.setStyle("-fx-text-fill: #dc2626;");
+            requestFeedbackLabel.setText("Please enter product name and quantity.");
             return;
         }
 
@@ -150,18 +144,24 @@ public class ShopDashboardController {
             if (qty <= 0) throw new NumberFormatException();
 
             User user = SessionManager.getCurrentUser();
-            ProductRequest req = new ProductRequest();
-            req.setShopId(user.getId());
-            req.setProductId(selectedProduct.getId());
-            req.setQuantity(qty);
-            req.setNotes(notes);
 
             SessionManager.executor().execute(() -> {
                 try {
+                    int productId = productDAO.findOrCreateProduct(productName, unit.isEmpty() ? "units" : unit);
+
+                    ProductRequest req = new ProductRequest();
+                    req.setShopId(user.getId());
+                    req.setProductId(productId);
+                    req.setQuantity(qty);
+                    req.setNotes(notes);
+
                     requestDAO.createRequest(req);
+
                     Platform.runLater(() -> {
                         requestFeedbackLabel.setStyle("-fx-text-fill: #16a34a;");
                         requestFeedbackLabel.setText("Request submitted successfully!");
+                        productNameField.clear();
+                        unitField.clear();
                         quantityField.clear();
                         notesArea.clear();
                         loadMyRequests();
@@ -195,15 +195,12 @@ public class ShopDashboardController {
         SessionManager.executor().execute(() -> {
             try {
                 List<Quotation> quotes = quotationDAO.getQuotationsForRequest(requestId);
-
-                // Fetch weather concurrently for each dealer's city to aid shop decision
                 for (Quotation q : quotes) {
                     if (q.getDealerCity() != null && !q.getDealerCity().isEmpty()) {
                         WeatherService.WeatherInfo info = WeatherService.getWeatherForCity(q.getDealerCity());
                         q.setWeatherNote(info.success ? info.condition + " (" + info.temperatureC + "°C)" : "N/A");
                     }
                 }
-
                 Platform.runLater(() -> quotationsTable.setItems(FXCollections.observableArrayList(quotes)));
             } catch (Exception e) {
                 e.printStackTrace();

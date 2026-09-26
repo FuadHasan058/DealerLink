@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefWidth="1000.0" prefHeight="650.0"
+<BorderPane prefWidth="1050.0" prefHeight="650.0"
             xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.dealerlink.controller.ShopDashboardController">
 
@@ -14,7 +14,7 @@
             <padding>
                 <Insets top="12" right="20" bottom="12" left="20"/>
             </padding>
-            <Label fx:id="headerLabel" text="Shop Owner Dashboard" styleClass="nav-title"/>
+            <Label fx:id="headerLabel" text="Shop Owner Dashboard" styleClass="nav-title" minWidth="-Infinity"/>
             <Region HBox.hgrow="ALWAYS"/>
             <Label fx:id="weatherStatusLabel" text="Weather: Loading..." styleClass="weather-tag"/>
             <Button text="Refresh" onAction="#handleRefresh"/>
@@ -32,17 +32,24 @@
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
 
+                    <!-- Persistent Non-Truncating Form Bar -->
                     <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
                         <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
+                            <Insets top="10" right="12" bottom="10" left="12"/>
                         </padding>
-                        <Label text="Select Product:"/>
-                        <ComboBox fx:id="productComboBox" promptText="Choose Product" prefWidth="220.0"/>
-                        <Label text="Qty:"/>
-                        <TextField fx:id="quantityField" promptText="Quantity" prefWidth="80.0"/>
-                        <Label text="Notes:"/>
-                        <TextArea fx:id="notesArea" promptText="Optional notes" prefRowCount="1" prefWidth="200.0"/>
-                        <Button text="Send Request" onAction="#handleCreateRequest" styleClass="primary-button"/>
+                        <Label text="Product:" minWidth="-Infinity"/>
+                        <TextField fx:id="productNameField" promptText="Enter product name" prefWidth="160.0"/>
+
+                        <Label text="Unit:" minWidth="-Infinity"/>
+                        <TextField fx:id="unitField" promptText="kg, bag, pc" prefWidth="85.0"/>
+
+                        <Label text="Qty:" minWidth="-Infinity"/>
+                        <TextField fx:id="quantityField" promptText="Quantity" prefWidth="75.0"/>
+
+                        <Label text="Notes:" minWidth="-Infinity"/>
+                        <TextArea fx:id="notesArea" promptText="Optional notes" prefRowCount="1" prefWidth="160.0"/>
+
+                        <Button text="Send Request" onAction="#handleCreateRequest" styleClass="primary-button" minWidth="-Infinity"/>
                         <Label fx:id="requestFeedbackLabel" styleClass="status-label"/>
                     </HBox>
 
@@ -51,9 +58,10 @@
                         <columns>
                             <TableColumn fx:id="colReqId" text="ID" prefWidth="50.0"/>
                             <TableColumn fx:id="colReqProduct" text="Product" prefWidth="180.0"/>
-                            <TableColumn fx:id="colReqQty" text="Quantity" prefWidth="90.0"/>
-                            <TableColumn fx:id="colReqStatus" text="Status" prefWidth="120.0"/>
-                            <TableColumn fx:id="colReqDate" text="Date Submitted" prefWidth="200.0"/>
+                            <TableColumn fx:id="colReqUnit" text="Unit" prefWidth="80.0"/>
+                            <TableColumn fx:id="colReqQty" text="Quantity" prefWidth="85.0"/>
+                            <TableColumn fx:id="colReqStatus" text="Status" prefWidth="110.0"/>
+                            <TableColumn fx:id="colReqDate" text="Date Submitted" prefWidth="190.0"/>
                         </columns>
                     </TableView>
                 </VBox>
@@ -94,12 +102,13 @@
                     <TableView fx:id="ordersTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="70.0"/>
-                            <TableColumn fx:id="colOrderProduct" text="Product" prefWidth="150.0"/>
-                            <TableColumn fx:id="colOrderDealer" text="Dealer" prefWidth="140.0"/>
-                            <TableColumn fx:id="colOrderTotal" text="Total ($)" prefWidth="110.0"/>
-                            <TableColumn fx:id="colOrderStatus" text="Order Status" prefWidth="110.0"/>
-                            <TableColumn fx:id="colOrderDeliveryStatus" text="Shipment Status" prefWidth="120.0"/>
-                            <TableColumn fx:id="colOrderLocation" text="Current Location" prefWidth="130.0"/>
+                            <TableColumn fx:id="colOrderProduct" text="Product" prefWidth="140.0"/>
+                            <TableColumn fx:id="colOrderUnit" text="Unit" prefWidth="75.0"/>
+                            <TableColumn fx:id="colOrderDealer" text="Dealer" prefWidth="130.0"/>
+                            <TableColumn fx:id="colOrderTotal" text="Total ($)" prefWidth="100.0"/>
+                            <TableColumn fx:id="colOrderStatus" text="Order Status" prefWidth="105.0"/>
+                            <TableColumn fx:id="colOrderDeliveryStatus" text="Shipment Status" prefWidth="115.0"/>
+                            <TableColumn fx:id="colOrderLocation" text="Current Location" prefWidth="120.0"/>
                             <TableColumn fx:id="colOrderWeather" text="Transit Weather" prefWidth="150.0"/>
                         </columns>
                     </TableView>

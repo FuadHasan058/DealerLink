@@ -9,11 +9,12 @@ public class Order {
     private int dealerId;
     private String dealerName; // joined
     private String productName; // joined
+    private String unit;       // joined
     private double totalAmount;
     private String status; // CONFIRMED, SHIPPED, DELIVERED, CANCELLED
     private String createdAt;
 
-    // Delivery fields (joined from deliveries table for convenience)
+    // Delivery fields (joined from deliveries table)
     private String deliveryStatus;
     private String deliveryLocation;
     private String weatherNote;
@@ -44,6 +45,9 @@ public class Order {
 
     public String getProductName() { return productName; }
     public void setProductName(String productName) { this.productName = productName; }
+
+    public String getUnit() { return unit; }
+    public void setUnit(String unit) { this.unit = unit; }
 
     public double getTotalAmount() { return totalAmount; }
     public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }

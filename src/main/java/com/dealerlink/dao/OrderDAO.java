@@ -15,7 +15,7 @@ import java.util.List;
 public class OrderDAO {
 
     private static final String JOIN_SELECT =
-            "SELECT o.*, su.name AS shop_name, du.name AS dealer_name, p.name AS product_name, " +
+            "SELECT o.*, su.name AS shop_name, du.name AS dealer_name, p.name AS product_name, p.unit AS unit, " +
                     "d.current_status AS delivery_status, d.current_location AS delivery_location, " +
                     "d.weather_note AS weather_note, d.estimated_arrival AS estimated_arrival " +
                     "FROM orders o " +
@@ -89,6 +89,7 @@ public class OrderDAO {
             o.setDealerId(rs.getInt("dealer_id"));
             o.setDealerName(rs.getString("dealer_name"));
             o.setProductName(rs.getString("product_name"));
+            o.setUnit(rs.getString("unit"));
             o.setTotalAmount(rs.getDouble("total_amount"));
             o.setStatus(rs.getString("status"));
             o.setCreatedAt(rs.getString("created_at"));
