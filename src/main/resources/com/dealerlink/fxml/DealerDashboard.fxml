@@ -31,16 +31,20 @@
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
+
+                    <!-- TextFields for Direct Inventory Entry -->
                     <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
                         <Label text="Product:"/>
-                        <ComboBox fx:id="invProductComboBox" promptText="Select Product" prefWidth="200.0"/>
-                        <Label text="Stock Qty:"/>
-                        <TextField fx:id="invQtyField" promptText="Qty" prefWidth="90.0"/>
-                        <Label text="Unit Price ($):"/>
-                        <TextField fx:id="invPriceField" promptText="Price" prefWidth="100.0"/>
+                        <TextField fx:id="invProductNameField" promptText="Enter product name" prefWidth="180.0"/>
+                        <Label text="Unit:"/>
+                        <TextField fx:id="invUnitField" promptText="e.g. piece" prefWidth="80.0"/>
+                        <Label text="Stock:"/>
+                        <TextField fx:id="invQtyField" promptText="Qty" prefWidth="75.0"/>
+                        <Label text="Price ($):"/>
+                        <TextField fx:id="invPriceField" promptText="Price" prefWidth="80.0"/>
                         <Button text="Update / Add Stock" onAction="#handleUpsertInventory" styleClass="primary-button"/>
                         <Label fx:id="invFeedbackLabel" styleClass="status-label"/>
                     </HBox>

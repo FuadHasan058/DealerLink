@@ -9,7 +9,6 @@ import com.dealerlink.dao.QuotationDAO;
 import com.dealerlink.dao.RequestDAO;
 import com.dealerlink.model.InventoryItem;
 import com.dealerlink.model.Order;
-import com.dealerlink.model.Product;
 import com.dealerlink.model.ProductRequest;
 import com.dealerlink.model.Quotation;
 import com.dealerlink.model.User;
@@ -29,8 +28,9 @@ public class DealerDashboardController {
     @FXML private Label headerLabel;
     @FXML private Label weatherStatusLabel;
 
-    // Inventory Tab
-    @FXML private ComboBox<Product> invProductComboBox;
+    // Inventory Tab - Replaced ComboBox with TextFields
+    @FXML private TextField invProductNameField;
+    @FXML private TextField invUnitField;
     @FXML private TextField invQtyField;
     @FXML private TextField invPriceField;
     @FXML private Label invFeedbackLabel;
@@ -92,7 +92,6 @@ public class DealerDashboardController {
         deliveryStatusComboBox.setItems(FXCollections.observableArrayList("PREPARING", "SHIPPED", "DELIVERED", "CANCELLED"));
 
         setupTableColumns();
-        loadProducts();
         loadInventory();
         loadRequests();
         loadOrders();
@@ -131,25 +130,16 @@ public class DealerDashboardController {
         });
     }
 
-    private void loadProducts() {
-        SessionManager.executor().execute(() -> {
-            try {
-                List<Product> products = productDAO.getAllProducts();
-                Platform.runLater(() -> invProductComboBox.setItems(FXCollections.observableArrayList(products)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
     @FXML
     private void handleUpsertInventory(ActionEvent event) {
-        Product p = invProductComboBox.getValue();
+        String productName = invProductNameField.getText().trim();
+        String unit = invUnitField.getText().trim();
         String qtyText = invQtyField.getText().trim();
         String priceText = invPriceField.getText().trim();
 
-        if (p == null || qtyText.isEmpty() || priceText.isEmpty()) {
-            invFeedbackLabel.setText("Please fill all inventory fields.");
+        if (productName.isEmpty() || qtyText.isEmpty() || priceText.isEmpty()) {
+            invFeedbackLabel.setStyle("-fx-text-fill: #dc2626;");
+            invFeedbackLabel.setText("Please enter product name, quantity, and price.");
             return;
         }
 
@@ -160,10 +150,14 @@ public class DealerDashboardController {
 
             SessionManager.executor().execute(() -> {
                 try {
-                    inventoryDAO.upsert(user.getId(), p.getId(), qty, price);
+                    int productId = productDAO.findOrCreateProduct(productName, unit.isEmpty() ? "units" : unit);
+                    inventoryDAO.upsert(user.getId(), productId, qty, price);
+
                     Platform.runLater(() -> {
                         invFeedbackLabel.setStyle("-fx-text-fill: #16a34a;");
                         invFeedbackLabel.setText("Inventory updated successfully!");
+                        invProductNameField.clear();
+                        invUnitField.clear();
                         invQtyField.clear();
                         invPriceField.clear();
                         loadInventory();

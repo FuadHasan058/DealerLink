@@ -32,16 +32,19 @@
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
 
+                    <!-- TextFields for Free-Text Product Entry -->
                     <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-                        <Label text="Select Product:"/>
-                        <ComboBox fx:id="productComboBox" promptText="Choose Product" prefWidth="220.0"/>
+                        <Label text="Product:"/>
+                        <TextField fx:id="productNameField" promptText="Enter product name" prefWidth="180.0"/>
+                        <Label text="Unit:"/>
+                        <TextField fx:id="unitField" promptText="e.g. kg, bag" prefWidth="80.0"/>
                         <Label text="Qty:"/>
-                        <TextField fx:id="quantityField" promptText="Quantity" prefWidth="80.0"/>
+                        <TextField fx:id="quantityField" promptText="Quantity" prefWidth="75.0"/>
                         <Label text="Notes:"/>
-                        <TextArea fx:id="notesArea" promptText="Optional notes" prefRowCount="1" prefWidth="200.0"/>
+                        <TextArea fx:id="notesArea" promptText="Optional notes" prefRowCount="1" prefWidth="170.0"/>
                         <Button text="Send Request" onAction="#handleCreateRequest" styleClass="primary-button"/>
                         <Label fx:id="requestFeedbackLabel" styleClass="status-label"/>
                     </HBox>
