@@ -10,14 +10,20 @@
 
     <!-- Top Navigation Bar -->
     <top>
-        <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="top-nav">
+        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="top-nav">
             <padding>
-                <Insets top="12" right="20" bottom="12" left="20"/>
+                <Insets top="10" right="20" bottom="10" left="20"/>
             </padding>
-            <Label fx:id="headerLabel" text="Shop Owner Dashboard" styleClass="nav-title" minWidth="-Infinity"/>
+            <StackPane styleClass="brand-icon-box">
+                <Region styleClass="brand-icon-shape"/>
+            </StackPane>
+            <VBox spacing="1">
+                <Label text="DealerLink" style="-fx-text-fill: #38bdf8; -fx-font-weight: 800; -fx-font-size: 15px;"/>
+                <Label fx:id="headerLabel" text="Shop Owner Portal" styleClass="nav-title" minWidth="-Infinity"/>
+            </VBox>
             <Region HBox.hgrow="ALWAYS"/>
-            <Label fx:id="weatherStatusLabel" text="Weather: Loading..." styleClass="weather-tag"/>
-            <Button text="Refresh" onAction="#handleRefresh"/>
+            <Label fx:id="weatherStatusLabel" text="Weather: Loading..." styleClass="weather-badge"/>
+            <Button text="Refresh Data" onAction="#handleRefresh"/>
             <Button text="Sign Out" onAction="#handleLogout" styleClass="danger-button"/>
         </HBox>
     </top>
@@ -32,28 +38,28 @@
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
 
-                    <!-- Persistent Non-Truncating Form Bar -->
+                    <!-- Non-Truncating Form -->
                     <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
                         <padding>
                             <Insets top="10" right="12" bottom="10" left="12"/>
                         </padding>
-                        <Label text="Product:" minWidth="-Infinity"/>
+                        <Label text="Product:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="productNameField" promptText="Enter product name" prefWidth="160.0"/>
 
-                        <Label text="Unit:" minWidth="-Infinity"/>
+                        <Label text="Unit:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="unitField" promptText="kg, bag, pc" prefWidth="85.0"/>
 
-                        <Label text="Qty:" minWidth="-Infinity"/>
+                        <Label text="Qty:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="quantityField" promptText="Quantity" prefWidth="75.0"/>
 
-                        <Label text="Notes:" minWidth="-Infinity"/>
+                        <Label text="Notes:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextArea fx:id="notesArea" promptText="Optional notes" prefRowCount="1" prefWidth="160.0"/>
 
                         <Button text="Send Request" onAction="#handleCreateRequest" styleClass="primary-button" minWidth="-Infinity"/>
                         <Label fx:id="requestFeedbackLabel" styleClass="status-label"/>
                     </HBox>
 
-                    <Label text="My Submitted Requests (Click row to view quotes below):" style="-fx-font-weight: bold;"/>
+                    <Label text="My Submitted Requests (Click row to view quotes below):" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
                     <TableView fx:id="myRequestsTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colReqId" text="ID" prefWidth="50.0"/>
@@ -73,7 +79,7 @@
                     <padding>
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
-                    <Label text="Quotes Received for Selected Request:" style="-fx-font-weight: bold;"/>
+                    <Label text="Quotes Received for Selected Request:" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
                     <TableView fx:id="quotationsTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="colQuoteId" text="Quote ID" prefWidth="65.0"/>

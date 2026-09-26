@@ -10,14 +10,20 @@
 
     <!-- Top Navigation Bar -->
     <top>
-        <HBox spacing="15.0" alignment="CENTER_LEFT" styleClass="top-nav-dealer">
+        <HBox spacing="14.0" alignment="CENTER_LEFT" styleClass="top-nav-dealer">
             <padding>
-                <Insets top="12" right="20" bottom="12" left="20"/>
+                <Insets top="10" right="20" bottom="10" left="20"/>
             </padding>
-            <Label fx:id="headerLabel" text="Dealer Portal" styleClass="nav-title" minWidth="-Infinity"/>
+            <StackPane styleClass="brand-icon-box">
+                <Region styleClass="brand-icon-shape"/>
+            </StackPane>
+            <VBox spacing="1">
+                <Label text="DealerLink" style="-fx-text-fill: #38bdf8; -fx-font-weight: 800; -fx-font-size: 15px;"/>
+                <Label fx:id="headerLabel" text="Dealer Portal" styleClass="nav-title" minWidth="-Infinity"/>
+            </VBox>
             <Region HBox.hgrow="ALWAYS"/>
-            <Label fx:id="weatherStatusLabel" text="Weather: Loading..." styleClass="weather-tag"/>
-            <Button text="Refresh" onAction="#handleRefresh"/>
+            <Label fx:id="weatherStatusLabel" text="Weather: Loading..." styleClass="weather-badge"/>
+            <Button text="Refresh Data" onAction="#handleRefresh"/>
             <Button text="Sign Out" onAction="#handleLogout" styleClass="danger-button"/>
         </HBox>
     </top>
@@ -32,21 +38,21 @@
                         <Insets top="15" right="15" bottom="15" left="15"/>
                     </padding>
 
-                    <!-- Persistent Non-Truncating Inventory Entry Form -->
+                    <!-- Non-Truncating Inventory Entry Form -->
                     <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="card-pane">
                         <padding>
                             <Insets top="10" right="12" bottom="10" left="12"/>
                         </padding>
-                        <Label text="Product:" minWidth="-Infinity"/>
+                        <Label text="Product:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="invProductNameField" promptText="Enter product name" prefWidth="160.0"/>
 
-                        <Label text="Unit:" minWidth="-Infinity"/>
+                        <Label text="Unit:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="invUnitField" promptText="e.g. piece" prefWidth="80.0"/>
 
-                        <Label text="Stock:" minWidth="-Infinity"/>
+                        <Label text="Stock:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="invQtyField" promptText="Qty" prefWidth="75.0"/>
 
-                        <Label text="Price ($):" minWidth="-Infinity"/>
+                        <Label text="Price ($):" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="invPriceField" promptText="Price" prefWidth="80.0"/>
 
                         <Button text="Update / Add Stock" onAction="#handleUpsertInventory" styleClass="primary-button" minWidth="-Infinity"/>
@@ -89,11 +95,11 @@
                         <padding>
                             <Insets top="10" right="12" bottom="10" left="12"/>
                         </padding>
-                        <Label text="Unit Price ($):" minWidth="-Infinity"/>
+                        <Label text="Unit Price ($):" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="quoteUnitRateField" promptText="0.00" prefWidth="80.0"/>
-                        <Label text="Lead Time (Days):" minWidth="-Infinity"/>
+                        <Label text="Lead Time (Days):" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="quoteDaysField" promptText="Days" prefWidth="65.0"/>
-                        <Label text="Message:" minWidth="-Infinity"/>
+                        <Label text="Message:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextArea fx:id="quoteMsgArea" promptText="Delivery details" prefRowCount="1" prefWidth="180.0"/>
                         <Button text="Submit Quotation" onAction="#handleSubmitQuotation" styleClass="success-button" minWidth="-Infinity"/>
                         <Label fx:id="quoteFeedbackLabel" styleClass="status-label"/>
@@ -125,11 +131,11 @@
                         <padding>
                             <Insets top="10" right="12" bottom="10" left="12"/>
                         </padding>
-                        <Label text="Status:" minWidth="-Infinity"/>
+                        <Label text="Status:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <ComboBox fx:id="deliveryStatusComboBox" prefWidth="130.0"/>
-                        <Label text="Location:" minWidth="-Infinity"/>
+                        <Label text="Location:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="deliveryLocationField" promptText="City name (e.g. Jessore)" prefWidth="150.0"/>
-                        <Label text="ETA:" minWidth="-Infinity"/>
+                        <Label text="ETA:" minWidth="-Infinity" style="-fx-font-weight: bold;"/>
                         <TextField fx:id="deliveryEtaField" promptText="e.g. 2 Days" prefWidth="90.0"/>
                         <Button text="Update Shipment" onAction="#handleUpdateDelivery" styleClass="primary-button" minWidth="-Infinity"/>
                         <Label fx:id="orderFeedbackLabel" styleClass="status-label"/>
