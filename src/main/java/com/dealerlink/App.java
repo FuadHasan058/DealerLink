@@ -33,12 +33,12 @@ public class App extends Application {
     public static void switchScene(String fxmlPath, String title) throws Exception {
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlPath));
         Parent root = loader.load();
-        Scene scene = new Scene(root, 1000, 650);
+        Scene scene = new Scene(root, 1150, 700);
         scene.getStylesheets().add(App.class.getResource("/com/dealerlink/css/style.css").toExternalForm());
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(900);
-        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(650);
     }
 
     public static Stage getPrimaryStage() {

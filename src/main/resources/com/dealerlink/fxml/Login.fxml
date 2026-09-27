@@ -4,88 +4,96 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20.0" prefWidth="1000.0" prefHeight="650.0"
-      styleClass="root-pane"
+<VBox alignment="CENTER" spacing="22.0" prefWidth="1050.0" prefHeight="680.0"
+      styleClass="login-bg"
       xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.dealerlink.controller.LoginController">
 
     <padding>
-        <Insets top="25" right="40" bottom="25" left="40"/>
+        <Insets top="30" right="40" bottom="30" left="40"/>
     </padding>
 
-    <!-- Top Logo & Header -->
-    <VBox alignment="CENTER" spacing="8.0">
-        <HBox alignment="CENTER" spacing="12.0">
-            <StackPane styleClass="brand-icon-box-large">
-                <Region styleClass="brand-icon-shape-large"/>
-            </StackPane>
-            <VBox alignment="CENTER_LEFT" spacing="0">
-                <Label text="DealerLink" styleClass="app-title-light"/>
-                <Label text="Smart B2B Supply &amp; Distribution Platform" styleClass="app-subtitle-light"/>
-            </VBox>
+    <!-- Header Branding -->
+    <VBox alignment="CENTER" spacing="6.0">
+        <HBox alignment="CENTER" spacing="10">
+            <Label text="DealerLink" style="-fx-font-size: 32px; -fx-font-weight: 800; -fx-text-fill: #ffffff; -fx-letter-spacing: -0.5px;"/>
+            <Label text="B2B" styleClass="brand-tag"/>
         </HBox>
+        <Label text="Connected Commerce &amp; Supply Chain Logistics" style="-fx-text-fill: #94a3b8; -fx-font-size: 13px;"/>
     </VBox>
 
-    <!-- Login/Register Card -->
-    <TabPane tabClosingPolicy="UNAVAILABLE" maxWidth="480.0" styleClass="login-card">
+    <!-- Glass Form Card -->
+    <TabPane tabClosingPolicy="UNAVAILABLE" maxWidth="440.0" styleClass="login-card">
         <!-- Sign In -->
-        <Tab text="Sign In">
+        <Tab text="Account Sign In">
             <VBox spacing="14.0">
                 <padding>
-                    <Insets top="22" right="25" bottom="22" left="25"/>
+                    <Insets top="24" right="28" bottom="24" left="28"/>
                 </padding>
 
-                <Label text="Portal Type:" style="-fx-font-weight: bold;"/>
-                <ComboBox fx:id="loginRoleComboBox" maxWidth="Infinity"/>
+                <VBox spacing="4">
+                    <Label text="Sign in As" styleClass="form-label"/>
+                    <ComboBox fx:id="loginRoleComboBox" maxWidth="Infinity"/>
+                </VBox>
 
-                <Label text="Username:" style="-fx-font-weight: bold;"/>
-                <TextField fx:id="loginUsernameField" promptText="Enter your registered username"/>
+                <VBox spacing="4">
+                    <Label text="Username" styleClass="form-label"/>
+                    <TextField fx:id="loginUsernameField" promptText="Enter username"/>
+                </VBox>
 
-                <Label text="Password:" style="-fx-font-weight: bold;"/>
-                <PasswordField fx:id="loginPasswordField" promptText="Enter your account password"/>
+                <VBox spacing="4">
+                    <Label text="Password" styleClass="form-label"/>
+                    <PasswordField fx:id="loginPasswordField" promptText="Enter password"/>
+                </VBox>
 
-                <Button text="Sign In to Platform" onAction="#handleLogin" maxWidth="Infinity" styleClass="primary-button"/>
+                <Button text="Sign In to Dashboard" onAction="#handleLogin" maxWidth="Infinity" styleClass="primary-button"/>
                 <Label fx:id="loginStatusLabel" styleClass="error-label"/>
             </VBox>
         </Tab>
 
         <!-- Register -->
-        <Tab text="Create New Account">
+        <Tab text="Create Account">
             <VBox spacing="10.0">
                 <padding>
-                    <Insets top="20" right="25" bottom="20" left="25"/>
+                    <Insets top="20" right="28" bottom="20" left="28"/>
                 </padding>
 
                 <HBox spacing="10">
                     <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Role:" style="-fx-font-weight: bold;"/>
+                        <Label text="Role" styleClass="form-label"/>
                         <ComboBox fx:id="regRoleComboBox" maxWidth="Infinity"/>
                     </VBox>
                     <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Username:" style="-fx-font-weight: bold;"/>
-                        <TextField fx:id="regUsernameField" promptText="Choose username"/>
+                        <Label text="Username" styleClass="form-label"/>
+                        <TextField fx:id="regUsernameField" promptText="Username"/>
                     </VBox>
                 </HBox>
 
-                <Label text="Password:" style="-fx-font-weight: bold;"/>
-                <PasswordField fx:id="regPasswordField" promptText="Create secure password"/>
+                <VBox spacing="4">
+                    <Label text="Password" styleClass="form-label"/>
+                    <PasswordField fx:id="regPasswordField" promptText="Create password"/>
+                </VBox>
 
-                <Label text="Full / Business Name:" style="-fx-font-weight: bold;"/>
-                <TextField fx:id="regNameField" promptText="Company or Owner Name"/>
+                <VBox spacing="4">
+                    <Label text="Company or Full Name" styleClass="form-label"/>
+                    <TextField fx:id="regNameField" promptText="e.g. Apex Hardware Store"/>
+                </VBox>
 
                 <HBox spacing="10">
                     <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="City:" style="-fx-font-weight: bold;"/>
-                        <TextField fx:id="regCityField" promptText="City name (e.g. Khulna)"/>
+                        <Label text="City" styleClass="form-label"/>
+                        <TextField fx:id="regCityField" promptText="e.g. Khulna"/>
                     </VBox>
                     <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Phone:" style="-fx-font-weight: bold;"/>
-                        <TextField fx:id="regPhoneField" promptText="Contact number"/>
+                        <Label text="Phone" styleClass="form-label"/>
+                        <TextField fx:id="regPhoneField" promptText="Phone number"/>
                     </VBox>
                 </HBox>
 
-                <Label text="Address:" style="-fx-font-weight: bold;"/>
-                <TextField fx:id="regAddressField" promptText="Physical store or office address"/>
+                <VBox spacing="4">
+                    <Label text="Address" styleClass="form-label"/>
+                    <TextField fx:id="regAddressField" promptText="Location details"/>
+                </VBox>
 
                 <Button text="Complete Registration" onAction="#handleRegister" maxWidth="Infinity" styleClass="success-button"/>
                 <Label fx:id="regStatusLabel" styleClass="error-label"/>
